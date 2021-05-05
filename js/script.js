@@ -1,9 +1,3 @@
-// In seguito deve chiedere all'utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
-// L'utente non può inserire più volte lo stesso numero.
-// Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all'utente un altro numero.
-// La partita termina quando il giocatore inserisce un numero "vietato" o raggiunge il numero massimo possibile di numeri consentiti.
-// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l'utente ha inserito un numero consentito.
-
 // FUNCTION
 function getRandomNumber(min, max) {
     var randomNumber = Math.floor(Math.random() * (max - min) + min);
@@ -33,3 +27,32 @@ while (bombs.length < 16) {
         bombs.push(randomBombs);
     }
 } console.log("BOMBE", bombs);
+
+// In seguito deve chiedere all'utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
+var attempts = [];
+var maxAttempts = 84; 
+maxAttempts = 5; 
+var endGame = false; 
+
+// continuo il ciclo finchè il numero di elementi nell'array (attempts) è minore del numero massimo di tentativi a disposizione e il valore che determina la conclusione del gioco risulta sempre falso
+while (attempts.length < maxAttempts && endGame == false) {
+    // chiedo all'utente di inserire un numero verificando sia che stia inserendo un numero e non una stringa sia che il numero non sia minore di 1 o maggiore di 100 
+    do {
+        var userNumber = parseInt(prompt("Inserisci un numero compreso tra 1 e 100"))
+        if (isNaN(userNumber) || userNumber < 1 || userNumber > 100) {
+            alert("ERRORE!!! Inserisci un 'NUMERO!' compreso tra 1 e 100")
+        }
+    } while (isNaN(userNumber) || userNumber < 1 || userNumber > 100);
+// Se il numero è presente nella lista dei numeri generati, la partita termina... 
+    if (isInArray(userNumber, bombs)) {
+        endGame = true;
+        alert("HAI PERSO!!!\nHai raggiunto un punteggio di:" + attempts.length)
+    } else if (!isInArray(userNumber, attempts)) { //...altrimenti si continua chiedendo all'utente un altro numero.
+        attempts.push(userNumber)
+    } console.log(userNumber, attempts.length);
+}
+console.log(attempts);
+
+if (attempts.length == maxAttempts) {
+    alert("HAI VINTO!!!\nHai raggiunto un punteggio di:" + attempts.length)
+}
