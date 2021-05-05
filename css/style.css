@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#win {
+    height: 200px;
+}
+
+#mac {
+    height: 100px;
+}
